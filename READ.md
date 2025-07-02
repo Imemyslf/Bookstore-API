@@ -32,7 +32,6 @@ Includes **JWT-based authentication**, **file-based persistence**, and full **CR
 ├── src/              # Express app entry point
 ├── test/             # Jest + Supertest API tests
 ├── utils/            # File I/O + path utilities
-├── .env              # Environment config (optional)
 ├── jest.config.mjs   # Jest config (ESM-friendly)
 └── package.json
 ```
