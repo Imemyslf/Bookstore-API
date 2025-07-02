@@ -48,7 +48,7 @@ Includes **JWT-based authentication**, **file-based persistence**, and full **CR
 ### Setup
 
 ```bash
-git clone https://github.com/your-username/bookstore-api.git
+git clone https://github.com/Imemyslf/Bookstore-API.git
 cd bookstore-api
 npm install
 ```
