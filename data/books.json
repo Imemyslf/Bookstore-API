@@ -1,0 +1,18 @@
+[
+  {
+    "id": "983165ac-267f-4845-a97f-97dc410bd177",
+    "title": "The Amazing Spiderman: Brand New Day",
+    "author": "Dan Slott, Bob Gale",
+    "genre": "Superhero",
+    "publishedYear": 2008,
+    "userId": "e93f9cd4-51f7-40c7-9b33-8bbfd3dcebe6"
+  },
+  {
+    "id": "6d769b4f-1e07-47f4-92fb-c458144c875a",
+    "title": "Percy Jackson and the Lightning Thief",
+    "author": "Rick Riordan",
+    "genre": "Fantasy",
+    "publishedYear": 2005,
+    "userId": "e93f9cd4-51f7-40c7-9b33-8bbfd3dcebe6"
+  }
+]
