@@ -10,6 +10,10 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/books", bookRoutes);
 
-app.listen(PORT, () => {
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
     console.log(`Server is running on Port: ${PORT}`);
-})
+  });
+}
+
+export default app;
