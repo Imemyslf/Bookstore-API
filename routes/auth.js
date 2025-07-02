@@ -5,6 +5,7 @@ import { readData, writeData } from "../utils/fileHandler.js";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 import { fileURLToPath } from "url";
+import { JWT_SECRET } from "../src/config.js";
 
 const router = Router();
 
@@ -12,7 +13,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const USER_FILE = path.resolve(__dirname,"../data/users.json");
-const JWT_SECRECT = "kishan@123";
 
 router.post("/register", async (req, res) => {
     const { email, password } = req.body;
@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
 
     const userData = { id: user.id, email: user.email }
 
-    const token = jwt.sign(userData, JWT_SECRECT);
+    const token = jwt.sign(userData, JWT_SECRET);
     res.json({message: "Login successful.", token });
 
 });
