@@ -19,12 +19,10 @@ describe('Auth API', () => {
     const email = `user${Date.now()}@test.com`;
     const password = 'validpass';
 
-    // Register first
     await request(app)
       .post('/auth/register')
       .send({ email, password });
 
-    // Then login
     const res = await request(app)
       .post('/auth/login')
       .send({ email, password });
