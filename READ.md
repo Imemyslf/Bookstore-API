@@ -56,6 +56,19 @@ npm install
 
 ---
 
+## 🔧 Developer Tools
+
+Make sure the following tools are installed globally for local development:
+
+- **nodemon** – Auto-restarts the server on file changes:
+  ```bash
+  npm install -g nodemon
+  ```
+
+These are helpful for development and testing but not required in production.
+
+---
+
 ## 🏁 Running the Server
 
 ```bash
@@ -145,8 +158,12 @@ Covers:
 
 Licensed under the [ISC License](LICENSE).
 
+
 ---
 
 ## ✍️ Author
 
-**Kishan Sharma**
+### **Kishan Sharma**
+---
+
+
