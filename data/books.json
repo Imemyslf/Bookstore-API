@@ -14,5 +14,13 @@
     "genre": "Fantasy",
     "publishedYear": 2005,
     "userId": "e93f9cd4-51f7-40c7-9b33-8bbfd3dcebe6"
+  },
+  {
+    "id": "23538ba6-5065-4491-bcb5-7104ac76ae31",
+    "title": "The Adventures of Tintin: The Secret of the Unicorn",
+    "author": "Hergé",
+    "genre": "Adventure",
+    "publishedYear": 1943,
+    "userId": "6fc07d37-1eca-48cc-9833-32b2d37c28f2"
   }
 ]
