@@ -71,7 +71,7 @@ These are helpful for development and testing but not required in production.
 ## 🏁 Running the Server
 
 ```bash
-npm start
+npm run dev
 ```
 
 Server starts at: [http://localhost:3000](http://localhost:3000)
