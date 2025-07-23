@@ -114,17 +114,6 @@ Test suite is powered by **Jest + Supertest**
   "publishedYear": 2023
 }
 ```
-
----
-
-## 🔐 Environment Variables
-
-| Key         | Default       | Description             |
-|-------------|---------------|-------------------------|
-| `JWT_SECRET`| `"kishan@123"`| Secret for JWT signing  |
-
----
-
 ## 🧪 Test Coverage
 
 All tests are located in `test/index.test.mjs` and are run with:
