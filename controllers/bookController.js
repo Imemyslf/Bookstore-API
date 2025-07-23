@@ -39,7 +39,7 @@ export async function createBook(req, res) {
   };
 
   await writeData(BOOKS_FILE, [...books, newBook]);
-  res.status(201).json(newBook);
+  res.status(201).json({"messge": "Book created successfully", "Book": {newBook}});
 }
 
 export async function updateBook(req, res) {
@@ -51,10 +51,18 @@ export async function updateBook(req, res) {
     return res.status(403).json({ message: 'Not authorized' });
   }
 
+  const previousRecord = { ...books[index] };
+  
   const updated = { ...books[index], ...req.body };
   books[index] = updated;
+  
   await writeData(BOOKS_FILE, books);
-  res.json(updated);
+  
+  res.json({
+    "message": "Updated book successfully",
+    "previous Record": previousRecord,
+    "update Book records": updated
+  });
 }
 
 export async function deleteBook(req, res) {

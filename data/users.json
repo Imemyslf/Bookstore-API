@@ -48,5 +48,10 @@
     "id": "569cef9c-bca0-4d1c-9989-094ec4193d6f",
     "email": "bookuser1751472121236@test.com",
     "password": "$2b$10$VnzHXQhzI/sDSfDfYUXo/epk60JYlLw9seKQ9LKbfx2QrIFnfMjVy"
+  },
+  {
+    "id": "4046b4a9-c6f6-4105-a72c-72e7c5d9e317",
+    "email": "user3@gmail.com",
+    "password": "$2b$10$xicVMD/TK40iP1WqtpFgt.bJjdX3jktMYOQJ1feIcUe.XqkWW/ZRS"
   }
 ]

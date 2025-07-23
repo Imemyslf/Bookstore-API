@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { v4 as uuidv4 } from 'uuid';
 import app from '../src/index.js';
 
 describe('Auth API', () => {
@@ -6,7 +7,7 @@ describe('Auth API', () => {
     const res = await request(app)
       .post('/auth/register')
       .send({
-        email: `user${Date.now()}@test.com`,
+        email: `user_${uuidv4()}@test.com`,
         password: 'secret123'
       });
 
@@ -16,7 +17,7 @@ describe('Auth API', () => {
   });
 
   it('should login successfully with correct credentials', async () => {
-    const email = `user${Date.now()}@test.com`;
+    const email = `user_${uuidv4()}@test.com`;
     const password = 'validpass';
 
     await request(app)
@@ -33,7 +34,7 @@ describe('Auth API', () => {
   });
 
   it('should fail login with incorrect password', async () => {
-    const email = `user${Date.now()}@test.com`;
+    const email = `user_${uuidv4()}@test.com`;
     const password = 'correctpass';
 
     await request(app)
@@ -55,7 +56,7 @@ describe('Books API', () => {
   let bookId;
 
   beforeAll(async () => {
-    const email = `bookuser${Date.now()}@test.com`;
+    const email = `bookuser_${uuidv4()}@test.com`;
     const password = 'bookpass';
 
     await request(app)

@@ -1,9 +1,13 @@
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../src/config.js";
+import dotenv from "dotenv";
+
+dotenv.config();
+const { JWT_SECRET } = process.env;
 
 export function authenticateToken( req, res, next) {
     const authHeader = req.headers["authorization"];
     console.log("Authorization Header:", authHeader);
+    
     const token = authHeader?.split(" ")[1];
     if (!token) {
         return res.status(401).json({ message: "Missing Token." });

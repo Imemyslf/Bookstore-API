@@ -3,7 +3,9 @@ import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import { readData, writeData } from '../utils/fileHandler.js';
 import { resolvePath } from '../utils/paths.js';
-import { JWT_SECRET } from '../src/config.js';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const USER_FILE = resolvePath('../data/users.json', import.meta.url);
 
@@ -38,6 +40,6 @@ export async function loginUser(req, res) {
     return res.status(401).json({ message: 'Invalid email or password.' });
   }
 
-  const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+  const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET , { expiresIn: '1h' });
   res.json({ message: 'Login successful.', token });
 }
