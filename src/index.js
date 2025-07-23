@@ -22,12 +22,13 @@ app.use("/auth", authRoutes);
 app.use("/books", bookRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
-if (process.env.NODE_ENV !== 'test') {
-  connectToDB(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on Port: ${PORT}`);
-  });
+connectToDB(() => {
+  if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+      console.log(`Server is running on Port: ${PORT}`);
+    });
+  }
 });
-}
+
 
 export default app;

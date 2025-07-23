@@ -1,31 +1,34 @@
-import request from 'supertest';
-import { v4 as uuidv4 } from 'uuid';
-import app from '../src/index.js';
+import request from "supertest";
+import { v4 as uuidv4 } from "uuid";
+import app from "../src/index.js";
+import { connectToDB, db } from "../src/database.js";
 
-describe('Auth API', () => {
-  it('should register a new user', async () => {
+beforeAll(async () => {
+  await new Promise((resolve) => connectToDB(resolve));
+});
+
+describe("Auth API", () => {
+  it("should register a new user", async () => {
     const res = await request(app)
-      .post('/auth/register')
+      .post("/auth/register")
       .send({
         email: `user_${uuidv4()}@test.com`,
-        password: 'secret123'
+        password: "secret123",
       });
 
     console.log(res.body);
     expect(res.statusCode).toBe(201);
-    expect(res.body.message).toBe('User registered successfully.');
+    expect(res.body.message).toBe("User registered successfully.");
   });
 
-  it('should login successfully with correct credentials', async () => {
+  it("should login successfully with correct credentials", async () => {
     const email = `user_${uuidv4()}@test.com`;
-    const password = 'validpass';
+    const password = "validpass";
 
-    await request(app)
-      .post('/auth/register')
-      .send({ email, password });
+    await request(app).post("/auth/register").send({ email, password });
 
     const res = await request(app)
-      .post('/auth/login')
+      .post("/auth/login")
       .send({ email, password });
 
     console.log(res.body);
@@ -33,84 +36,91 @@ describe('Auth API', () => {
     expect(res.body.token).toBeDefined();
   });
 
-  it('should fail login with incorrect password', async () => {
+  it("should fail login with incorrect password", async () => {
     const email = `user_${uuidv4()}@test.com`;
-    const password = 'correctpass';
+    const password = "correctpass";
 
-    await request(app)
-      .post('/auth/register')
-      .send({ email, password });
+    await request(app).post("/auth/register").send({ email, password });
 
     const res = await request(app)
-      .post('/auth/login')
-      .send({ email, password: 'wrongpass' });
+      .post("/auth/login")
+      .send({ email, password: "wrongpass" });
 
     console.log(res.body);
     expect(res.statusCode).toBe(401);
-    expect(res.body.message).toBe('Invalid email or password.');
+    expect(res.body.message).toBe("Invalid email or password.");
   });
 });
 
-describe('Books API', () => {
+describe("Books API", () => {
   let token;
   let bookId;
 
   beforeAll(async () => {
     const email = `bookuser_${uuidv4()}@test.com`;
-    const password = 'bookpass';
+    const password = "bookpass";
 
-    await request(app)
-      .post('/auth/register')
-      .send({ email, password });
+    await request(app).post("/auth/register").send({ email, password });
 
     const res = await request(app)
-      .post('/auth/login')
+      .post("/auth/login")
       .send({ email, password });
 
     token = res.body.token;
   });
 
-  it('should create a new book', async () => {
+  it("should create a new book", async () => {
     const res = await request(app)
-      .post('/books')
-      .set('Authorization', `Bearer ${token}`)
+      .post("/books")
+      .set("Authorization", `Bearer ${token}`)
       .send({
-        title: 'Test Book',
-        author: 'Test Author',
-        genre: 'Test Genre',
-        publishedYear: 2020
+        title: "Test Book",
+        author: "Test Author",
+        genre: "Test Genre",
+        publishedYear: 2020,
       });
 
+    console.log(res.body);
     expect(res.statusCode).toBe(201);
-    expect(res.body.title).toBe('Test Book');
-    bookId = res.body.id; // save for later tests
+
+    // Adjust depending on how your controller sends data
+    expect(res.body.Book.title).toBe("Test Book");
+    bookId = res.body.Book.id;
+    expect(bookId).toBeDefined();
   });
 
-  it('should fetch all books', async () => {
+  it("should fetch all books", async () => {
     const res = await request(app)
-      .get('/books')
-      .set('Authorization', `Bearer ${token}`);
+      .get("/books")
+      .set("Authorization", `Bearer ${token}`);
 
     expect(res.statusCode).toBe(200);
     expect(Array.isArray(res.body.data || res.body)).toBe(true);
   });
 
-  it('should update the book', async () => {
+  it("should update the book", async () => {
     const res = await request(app)
       .put(`/books/${bookId}`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({ title: 'Updated Book Title' });
+      .set("Authorization", `Bearer ${token}`)
+      .send({ title: "Updated Book Title" });
 
     expect(res.statusCode).toBe(200);
-    expect(res.body.title).toBe('Updated Book Title');
+    expect(res.body.updatedBook.title).toBe("Updated Book Title"); 
   });
 
-  it('should delete the book', async () => {
+  it("should delete the book", async () => {
     const res = await request(app)
       .delete(`/books/${bookId}`)
-      .set('Authorization', `Bearer ${token}`);
+      .set("Authorization", `Bearer ${token}`);
 
     expect(res.statusCode).toBe(200);
-    expect(res.body.message).toBe('Book deleted');
+    expect(res.body.message).toBe("Book deleted");
   });
+});
+
+// Optional: close db after tests
+afterAll(async () => {
+  if (db) {
+    await db.client?.close?.(); 
+  }
 });
