@@ -54,7 +54,8 @@ export async function createBook(req, res) {
   }
 }
 
-
+//http://localhost:3000/:id
+//http://localhost:3000/1 {body}
 export async function updateBook(req, res) {
   try {
     const booksCollection = db.collection('books');

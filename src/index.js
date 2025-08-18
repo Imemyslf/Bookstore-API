@@ -9,11 +9,8 @@ import { connectToDB } from './database.js';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const swaggerDoc = YAML.load('./docs/swagger.yaml');
-
-
-
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -24,9 +21,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 connectToDB(() => {
   if (process.env.NODE_ENV !== 'test') {
-    app.listen(PORT, () => {
-      console.log(`Server is running on Port: ${PORT}`);
-    });
+    
   }
 });
 
